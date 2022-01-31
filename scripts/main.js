@@ -24,6 +24,7 @@ async function onLogOutButton() {
 async function onProveWalletButton(button) {
     setButtonState(button, false, 'Connecting MetaMask...');
     let isLoggedIn = false;
+    ga_trackConnectWallet();
     try {
         isLoggedIn = await moralisLogin();
     } catch (err) {
@@ -32,8 +33,8 @@ async function onProveWalletButton(button) {
 
     if (isLoggedIn) {
         setButtonState(button, false, 'Checking NFTs...');
-
         const userNFTs = await cloudFunc_getUserNFTsInWalletCount();
+        ga_checkUserNFTs();
 
         if (userNFTs.userHasNFT) {
             setButtonState(button, false, String(userNFTs.nftCount) + ' NFTs detected!');
@@ -60,4 +61,5 @@ async function onProveWalletButton(button) {
 
 async function onDoNotHaveAWalletButton() {
     showUserHasNoWalletPage();
+    ga_trackEnterWithoutWallet();
 }
