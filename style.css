@@ -1,0 +1,477 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: black;
+    background-image: linear-gradient(-180deg, #0D0D0DFF 0%, #2B1F1DEE 100%), linear-gradient(to bottom, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    font-family: 'Yanone Kaffeesatz', Arial, sans-serif;
+}
+
+input, button {
+    font-family: Arial, sans-serif;
+}
+
+h2, p {
+    line-height: 1.5em;
+}
+
+.small-text {
+    font-size: 0.8em;
+}
+
+.medium-text {
+    font-size: 1.2em;
+}
+
+.text-underline {
+    border-bottom: 1px solid #FCF6BA;
+}
+
+.text-spacing-circle {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    opacity: 0.5;
+    font-size: 0.8em;
+}
+
+.bold-text {
+    font-weight: bold;
+}
+
+.card-outlined {
+    border: 1px solid #FCF6BA;
+    border-radius: 8px;
+    padding: 20px 50px;
+}
+
+.layout-container {
+    /* grid that makes the last button be centered on screen and the header be at the top */
+    display: flex;
+    flex-direction: column;
+}
+
+.content-container {
+    max-width: 80vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.main-layout {
+    position: relative;
+    z-index: 3;
+}
+
+.user-topright-content {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+}
+
+/* max-width screen size 500px */
+@media screen and (max-width: 500px) {
+    .user-topright-content {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+.page-content {
+    margin: 40px;
+}
+
+.continue-reading-down-arrow {
+    color: #FCF6BA;
+    font-size: 2em;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+.uppercase {
+    text-transform: uppercase;
+}
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 2.5em;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #FCF6BA;
+}
+
+.title-centered {
+    text-align: center;
+    font-size: 2.5em;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    color: #FCF6BA;
+}
+
+.buttons-container {
+    /* center in the middle of the screen */
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    flex-wrap: wrap;
+}
+
+.buttons-container button {
+    margin: 20px;
+}
+
+.enter-button-text {
+    font-size: 2em;
+}
+
+.outlined-button {
+    display: block;
+    outline: none;
+    border: 1px solid #FCF6BA;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background: none;
+    color: #FCF6BA;
+    cursor: pointer;
+}
+.outlined-button:hover {
+    background: #FCF6BA;
+    color: black;
+}
+
+/* A thin round circle button that rotates slowly in an animation with the text "ENTER" inside it.
+When user hovers over the button, it glows with a nice diffuse golden light. The thin round outline has a gap in it
+so when it rotates, you see the gap moving around. The button is transparent in the middle and only has a 2px thin outline */
+.circle-button {
+    position: relative;
+    display: inline-block;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    background: transparent;
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    overflow: hidden;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    user-select: none;
+    align-items: center;
+    cursor: pointer;
+    z-index: 3;
+    color: white;
+    padding: 20px;
+    padding-top: 36px;
+}
+
+.glowButton {
+    position: relative;
+    transition: box-shadow 0.6s ease-out;
+    transition-property: box-shadow, background;;
+    background: rgba(0,0,0, 0.1);
+}
+
+.glowButton:hover {
+    box-shadow:
+        0 0 60px 2px  #feffc3,
+        0.5rem 0.5rem 30px #100727;
+    background: rgba(0,0,0, 0.5);
+}
+
+.glowButton:after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    bottom: 2px;
+    left: 2px;
+    border-radius: 30px;
+    background-image: linear-gradient( 170deg, rgba(white, 0.3), rgba(white, 0) );
+    pointer-events: none;
+}
+
+@keyframes move-background-1 {
+    from {
+        background-position-y: 0px;
+        /* transform: translate3d(0px, 0px, 0px); */
+    }
+    to {
+        background-position-y: -1375px;
+        /* transform: translate3d(0px, 1000px, 0px); */
+    }
+}
+
+@keyframes move-background-2 {
+    from {
+        background-position-y: 687px;
+        /* transform: translate3d(0px, 0px, 0px); */
+    }
+    to {
+        background-position-y: -687px;
+        /* transform: translate3d(0px, 1000px, 0px); */
+    }
+}
+
+
+@keyframes move-background-3 {
+    from {
+        background-position-y: 343px;
+        /* transform: translate3d(0px, 0px, 0px); */
+    }
+    to {
+        background-position-y: -1030px;
+        /* transform: translate3d(0px, 1000px, 0px); */
+    }
+}
+
+.background-container{
+    position: fixed;
+    top: 0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    mix-blend-mode: color-dodge;
+}
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left:0;
+    bottom: 0;
+    right: 0;
+    background: #ffdec6;
+    mix-blend-mode: overlay;
+}
+
+.stars {
+    background: black;
+    background-image: url(./assets/stars.png);
+    background-repeat: repeat;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: block;
+    z-index: 0;
+}
+
+.twinkling{
+    width:10000px;
+    height: 100%;
+    background: transparent url("./assets/twinkling.png") repeat;
+    background-blend-mode: darken;
+    background-size: 1000px 1000px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 2;
+}
+
+.stars-background-size-1 { background-size: 2000px 1375px; }
+/* .stars-background-size-2 { background-size: 1000px 687px; } */
+/* .stars-background-size-3 { background-size: 500px 343px; } */
+
+.twinkling-background-size-1 { background-size: 1000px 1000px; }
+.twinkling-background-size-2 { background-size: 500px 500px; }
+.twinkling-background-size-3 { background-size: 250px 250px; }
+
+.opacity-1 { opacity: 0.4; }
+.opacity-2 { opacity: 0.9; }
+.opacity-3 { opacity: 0.8; }
+
+.circle-button-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 1.7em;
+}
+/* comment/uncomment the below lines to enable/disable background anmation */
+
+.animation-stars-1 { animation: move-background-1 100s linear infinite; }
+.animation-twinkling-1 { animation:move-background-1 50s linear infinite; }
+.animation-stars-2 { animation: move-background-2 200s linear infinite; }
+.animation-twinkling-2 { animation:move-background-2 100s linear infinite; }
+.animation-stars-3 { animation: move-background-3 400s linear infinite; }
+.animation-twinkling-3 { animation:move-background-3 200s linear infinite; }
+
+.article-card {
+    padding: 2em;
+    border-radius: 1em;
+    text-align: left;
+    background: #ffffffeb;
+    color: black;
+    margin-top: 1em;
+    width: 100%;
+    max-width: 70vw;
+}
+
+.article-card section,
+.article-card title,
+.article-card h2,
+.article-card ul,
+.article-card li,
+.article-card p {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.article-card h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+}
+.article-card h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+}
+.article-card h4 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 3rem;
+}
+.article-card p {
+    font-size: 1rem;
+}
+.article-card ul {
+    font-size: 1rem;
+    line-height: 2rem;
+}
+
+.anti-nft-symbol-container {
+    display: flex;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.image-card .title {
+    font-size: 2rem;
+}
+
+.collection-images-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.collection-image-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+    background: white;
+    border: 1px solid #cccccc;
+    color: black;
+    padding: 0px;
+    border-radius: 16px;
+    margin: 10;
+    overflow: hidden;
+}
+
+.collection-image-card:hover {
+    box-shadow: 0px 0px 24px -10px #00000030;
+}
+
+.collection-image-card-footer {
+    background: linear-gradient(rgba(229, 232, 235, 0.392) 0%, rgb(255, 255, 255) 20%);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: stretch;
+    font-size: 1rem;
+    padding: 10px 20px;
+}
+.collection-image-card-footer .right-column {
+    flex: 1;
+    text-align: right;
+}
+
+.collection-image-card-footer .title-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: start;
+    flex: 1;
+}
+
+.collection-image-card-footer .title-row .supertitle {
+    color: rgb(112, 122, 131);
+    font-weight: 500;
+    font-size: 12px;
+    margin-bottom: 0px;
+}
+
+.collection-image-card-footer .title-row .title {
+    color: rgb(53, 56, 64);
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    font-weight: 600;
+    text-align: left;
+    margin-top: 0px;
+}
+
+.collection-image-card-footer .title-row .price {
+    color: rgb(53, 56, 64);
+    font-size: 12px;
+    letter-spacing: 0.1px;
+    font-weight: 600;
+    text-align: right;
+    margin-top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.collection-image-card-footer .link-row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+}
+
+.collection-image-card-footer .link-row a {
+    margin: 0rem 0rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    outline: none;
+    border-bottom: 1px solid #1d1a0000;
+    padding: 0.2rem 0rem;
+    font-size: 0.8rem;
+    margin-right: 2em;
+    font-weight: bold;
+    border-radius: 0px;
+    background: none;
+    color: #35008a;
+    cursor: pointer;
+}
+.collection-image-card-footer a:hover {
+    border-bottom: 1px solid #1d1a00;
+    background: linear-gradient(rgba(229, 232, 235, 0.392) 0%, rgb(255, 255, 255) 20%);
+}
+.collection-image-card .image{
+    max-width: 260px;
+    width: 100%;
+}
+

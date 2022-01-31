@@ -1,0 +1,407 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+        <link rel="manifest" href="./site.webmanifest">
+        <title>The Anti-NFT Art Piece</title>
+
+        <link rel="stylesheet" href="./style.css" type="text/css" charset="utf-8" />
+
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200&display=swap');
+            .font-yanone {
+                font-family: 'Yanone Kaffeesatz', sans-serif;
+            }
+            </style>
+        <!-- MetaMask detect browser -->
+        <script src="https://unpkg.com/@metamask/detect-provider/dist/detect-provider.min.js"></script>
+
+        <!-- Moralis SDK code -->
+        <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+        <script src="https://unpkg.com/moralis/dist/moralis.js"></script>
+    </head>
+    <body>
+        <div class="background-container opacity-3">
+            <div class="stars animation-stars-3 stars-background-size-3"></div>
+            <div class="twinkling animation-twinkling-3 twinkling-background-size-3"></div>
+            <div class="background-overlay"></div>
+        </div>
+        <div class="background-container opacity-2">
+            <div class="stars animation-stars-2 stars-background-size-2"></div>
+            <div class="twinkling animation-twinkling-2 twinkling-background-size-2 "></div>
+            <div class="background-overlay"></div>
+        </div>
+        <div class="background-container opacity-1">
+            <div class="stars animation-stars-1 background-size-1"></div>
+            <div class="twinkling animation-twinkling-1 twinkling-background-size-1"></div>
+            <div class="background-overlay"></div>
+        </div>
+
+        <div class="layout-container main-layout">
+            <div class="title-centered">
+                <h1 class="alhpa-logo"><img width="100" src="./assets/alpha-gold-symbol-small.png" /></h1>
+                <h2 class="uppercase">THE <span class="text-underline">ANTI</span>-NFT ART PIECE</h2>
+            </div>
+
+            <div id="pages-container">
+
+                <div id="page-initializing" class="page-content hidden centered-content">
+                    <p class="small-text">Loading...</p>
+                </div>
+
+                <div id="page-ethereum-browser-detected" class="page-content hidden centered-content">
+                    <p class="small-text">We detected that your browser has MetaMask wallet.</p>
+                    <p class="small-text">To enter, you need to prove if you hold any NFTs or not...</p>
+                    <button onclick="onProveWalletButton(this)" id="check-my-wallet-button" class="glowButton circle-button">
+                        <div class="enter-button-inner">
+                            <div id="enter-button-text" class="enter-button-text button-text-wrapper circle-button-layout">
+                                Check my wallet
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <div id="page-moralis-user-detected" class="page-content hidden centered-content">
+                    <p class="small-text">Welcome back!</p>
+                    <p class="small-text">To enter again, you need to prove if you hold any NFTs or not...</p>
+                    <button onclick="onProveWalletButton(this)" id="check-my-wallet-button" class="glowButton circle-button">
+                        <div class="enter-button-inner">
+                            <div id="enter-button-text" class="enter-button-text button-text-wrapper circle-button-layout">
+                                Check my wallet
+                            </div>
+                        </div>
+                    </button>
+                </div>
+
+                <div id="page-non-ethereum-browser-detected" class="page-content hidden centered-content">
+                    <p class="small-text">We detected that your browser does not have MetaMask wallet enabled.</p>
+                    <p class="small-text">You may enter.</p>
+                    <button onclick="onDoNotHaveAWalletButton()" id="enter-button" class="glowButton circle-button">
+                        <div class="enter-button-inner">
+                            <div id="enter-button-text" class="enter-button-text circle-button-layout">Enter</div>
+                        </div>
+                    </button>
+                </div>
+
+                <div id="page-main" class="page-content hidden centered-content">
+                    <div class="user-topright-content">
+                        <button onclick="onLogOutButton()" class="outlined-button">Disconnect Wallet</button>
+                    </div>
+                    <div class="anti-nft-symbol-container">
+                        <div class="collection-image-card">
+                            <img class="image" src="./anti-nft-symbol-images/anft-1.png" alt="anti nft symbol image #1">
+                            <div class="collection-image-card-footer">
+                                <div class="title-row">
+                                    <div class="left-column">
+                                        <p class="supertitle">aNFT Collection</p>
+                                        <h4 class="title">#1</h4>
+                                    </div>
+                                    <div class="right-column">
+                                        <p class="supertitle">Price</p>
+                                        <h4 class="price"><img width="14" height="14" border="0" src="./assets/eth-symbol.svg" /> 0 <span
+                                                class="text-spacing-circle">●</span> Free</h4>
+                                    </div>
+                                </div>
+                                <div class="link-row">
+                                    <a href="./anti-nft-symbol-images/anft-1.png" target="_blank">PNG</a>
+                                    <a href="./anti-nft-symbol-images/anft-1.svg" target="_blank">SVG</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="dynamic-page-content user-has-no-nfts hidden">
+                        <div class="card-outlined">
+                            <p class="small-text">Congratulations</p>
+                            <p class="medium-text ">You have <span class="bold-text text-underline">0 NFTs</span> in your wallet</p>
+                        </div>
+                        <br />
+                        <p>This gives you the opportunity to take part in this anti-nft art piece movement.</p>
+                    </div>
+                    <div class="dynamic-page-content user-has-nfts hidden">
+                        <div class="card-outlined">
+                            <p class="small-text">Sorry...</p>
+                            <p class="medium-text ">We detected <span class="bold-text text-underline">
+                                <span id="user-nft-count-text">0</span> NFTs</span> in your wallet</p>
+                        </div>
+                        <br />
+                        <p>However, this does not exclude you from the opportunity to take part in this anti-nft art piece movement.</p>
+                    </div>
+                    <div class="dynamic-page-content user-has-no-wallet hidden">
+                        <div class="card-outlined">
+                            <p class="small-text">Welcome</p>
+                            <p class="medium-text ">Your browser <span class="bold-text text-underline">does not</span> have a MetaMask wallet with NFTs</p>
+                        </div>
+                        <br />
+                        <p>This gives you the opportunity to take part in this anti-nft art piece movement.</p>
+                    </div>
+                    <div class="content-container">
+                        <p class="continue-reading-down-arrow">↓</p>
+
+                        <div class="article-card">
+                            <h1>The Alpha Anti-NFT (aNFT) White Paper Manifesto</h1>
+                            <section>
+                                <h3>Part 0: The intent of this anti-nft art piece</h3>
+                                <p>The content you are currently experiencing is itself a kind of art piece. In the first form, this is created as a web page with specific intents:
+                                </p>
+                                <ul>
+                                    <li>Create awareness of the current NFT hype and the problems it creates</li>
+                                    <li>To start more conversations about the value of things, art, and the use of the internet</li>
+                                    <li>To prove that art and content can be valued and rewarded fairly</li>
+                                    <li>To provide a symbol and perhaps create a community for the ones that want to separate themselves from the "NFT Bro" culture.</li>
+                                </ul>
+                                <p>
+                                    This article explains the current state of the global NFT hype going on and some of the problems with it.
+                                    We also give some reasons why the current usage of NFTs is against democratic ideology and why it is working against the benefits of a free, information-rich internet where content generation and information sharing is cheap and easy.
+                                </p>
+                            </section>
+
+                            <section>
+                                <h3>Part 1: What are NFTs basically</h3>
+                                <p>You will find various technical definitions for NFTs on the internet. <a href="https://en.wikipedia.org/wiki/Non-fungible_token" target="_blank">For example on wikipedia.</a> </p>
+                                <p>For simplicity, I will here give a non-technical definition in the context of how NFTs are being "used" today.</p>
+                                <p>NFTs are basically one way of using technology to assign ownership to a digitial piece of information. When these digitial pieces of information exist on a blockchain ledger, it allows the ownership proof to be decentralized in theory, so people don't have to trust a single entity to exist for the ownership to remain.</p>
+                                <p>An example of <italic>centralized</italic> ownership proof, is when you are buying a game item in a traditional computer game. You only "own" that item in the context of that game, and as long as the game company exist and keep that ownership in their records.</p>
+                                <p>Another way a game company could store your ownership of a game item, is if that game item existed on a decentralized shared blockhain, which is not "owned" by any one entity. Even if the game company ceases to exist, your ownership of an item is still recorded on the shared ledger. You move the trust of record-keeping away from the single company to this shared ledger.</p>
+                                <p>This decentralized and distributed ownership ledger can have some good practical applications. However, there are a few specific applications that are currently spreading in our culture.</p>
+                                <p>Examples of NFT usage today:
+                                    <ul>
+                                        <li>Selling intangible "club" memberships, such as the Bored Ape Yacht Club. You can <a href="https://everipedia.org/wiki/lang_en/bored-ape-yatch-club" target="_blank">read about it at Everipedia.</a></li>
+                                        <li>Selling digital items that can be used in games.</li>
+                                        <li>Selling virtual land in various "Metaverse" experiences.</li>
+                                        <li>Selling digital "art" in the form of images, music, videos.</li>
+                                        <li>Selling "collectible" sets of said digital art pieces.</li>
+                                    </ul>
+                                </p>
+                            </section>
+
+                            <section>
+                                <h3>Part 2: The (overly-simplified) problems with NFTs in the current state</h3>
+                                <p>NFTs are problematic for a few reasons. Firstly, they are often used to create exclusive economies in which only a
+                                select few can own certain assets. This goes against the principle of a free and open internet, where information and
+                                content is cheap and easy to share. Secondly, NFTs can be used to create digital scarcity, which can be used to
+                                manipulate prices and create artificial bubbles. Finally, NFTs are often used to create digital assets that have no
+                                real-world value. This means that they can be used to scam people and steal their money.</p>
+                            </section>
+
+                            <section>
+                                <h3>Part 3: The people are divided</h3>
+                                <p>There are two camps when it comes to NFTs - those who see the potential and those who see the problems. The people who
+                                see the potential believe that NFTs are a way to create new economies and new types of digital assets that have
+                                real-world value. The people who see the problems believe that NFTs are a way to create exclusive economies and
+                                manipulate prices, and that they have no real-world value - or that the current "value" created is based in the
+                                temporary subjective macro-culture of today, and a self-fulfilling prophesy/bubble. This project focuses on shining some light
+                            on the "problems", and giving voice to the many who can not fathom why the world has gone "crazy" over something that "has no value".</p>
+                                <h4>Some examples to illustrate</h4>
+                                <p>
+                                    <a href="https://www.youtube.com/watch?v=_noey_NmZV0" target="_blank">Youtube: NFTs are Pointless</a>
+                                    <br />
+                                    <a href="https://www.youtube.com/watch?v=_fZZTkaNPJU" targer="_blank">Youtube: Why NFTs Are Completely WORTHLESS</a>
+                                    <br />
+                                    <a href="https://www.youtube.com/watch?v=YQ_xWvX1n9g" target="_blank">Youtube: Line Goes Up – The Problem With NFTs</a>
+                                    <br />
+                                    <a href="https://twitter.com/NFTtheft" target="_blank">Twitter: NFT thefts (@NFTtheft)</a>
+                                    <br />
+                                    <a href="https://www.gawker.com/culture/the-future-is-useless-expensive">Gawker.com: The future is not only useless, it's expensive</a>
+                                    <br />
+                                    <a href="https://www.theatlantic.com/ideas/archive/2021/04/nfts-werent-supposed-end-like/618488/" target="_blank">The Atlantic: NFTs Weren’t Supposed to End Like This</a>
+                                    <br />
+                                </p>
+
+                            </section>
+
+                            <section>
+                                <h3>Part 4: Temporary subjective macro-culture self-fulfilling bubble</h3>
+                                <p>When NFTs are used to create scarcity of something that has no reason to be scarce in the first place, they create a temporary subjective macro-culture self-fulfilling bubble.
+                                When something is rare and exclusive, people will want it more. This is just the way most of the human brains are programmed.
+                                When something is rare and exclusive, it creates a social status for those who own it. Some humans will want to have this as well. This is
+                                partially the reason why things like Ferraris, gold and diamonds are so valuable - they are rare and exclusive, because they are priced such that only
+                            people with a lot of money can afford it.</p>
+                                <p>Physical items have real-world <strong>reasons</strong> to be limited and scarce. It is because it actually requires resources, time and labor to create each
+                                individual item, such as a single Ferrari. Digital items - however - does not require a much of anything to duplicate. And so it goes against the nature of digital benefits to
+                            create a limitation in the duplication of digital resources, simply to satisfy the human brain's desire for obtaining something scarce.</p>
+                            <p>The problem with this is that it creates an artificial value. When something is rare and exclusive, people will pay more
+                                for it than it is "worth". This is because they want to be a part of the exclusive group. This is what is happening with
+                                NFTs. People are paying more for them than they are worth, because they want to be a part of the exclusive group that
+                                owns them.</p>
+                            </section>
+
+                            <section>
+                                <h3>Part 5: The term "value" is already hard to define</h3>
+                                <p>The term "value" is already hard to define. This is because it is subjective. What one person may see as valuable,
+                                another person may not. This is because our values are shaped by our culture, upbringing and experiences. This means
+                                that the value of an NFT is also subjective. What one person may see as valuable, another person may not. In the debates
+                                involving NFTs, the term "value" is being used in various ways on both sides of the argument, but often people are not
+                                agreeing on what type of value they refer to - intrinsic, extrinsic or subjective.</p>
+                            </section>
+
+                            <section>
+                                <h3>Part 6: The value of hard-work art and auto-generated "art"</h3>
+                                <p>Some people value art because it has been created by another human, who they respect or to whom they attribute some
+                                value. Therefore they also attribute some kind of value to the artwork that this person has created. People can also
+                                attribute value to an artwork without knowing who has created it. In this case, it could be because the artwork produces
+                                specific feelings, thoughts or emotions within the person experiencing it. However, this is different for each
+                                individual and the specific artwork should be valued differently depending on the person experiencing it.</p>
+                                <p>Some people also value artwork that is auto-generated, without any input from a human. This is because they see it as a
+                                representation of the current state of technology and art. They believe that it is a new form of art that has not been
+                                explored before and that it has a lot of potential. These are valid statements about the technology, but does not mean
+                                that specific generated pieces have much value in and of themselves. They are representations of the technology, but the
+                                value of these representations come from the subjective interpretation of the person experiencing it, similar to
+                                traditional analogue art.</p>
+                                <p>Today, a person can use already-created software to auto-generate 10.000 unique variations of a "simple" drawing or
+                                photograph, and sell a representation (NFT) of each individual image for an arbitrary amount of money. This is an
+                                example of how something that (often) has no intrinsic value can be given value through the act of selling it. People
+                                are buying these NFTs for different reasons, but a lot of people are under the impression that these have "a lot of
+                                value", or "will increase in value". A lot of people are simply gambling on the "value" of these NFTs, and because so
+                                many are doing this, it has created an artificial bubble.</p>
+                            </section>
+
+
+                            <section>
+                                <h3>Part 7: How can you participate?</h3>
+                                <p>If you agree with the above statements/ideas/thoughs, you can chose to "participate" by different means. You can chose
+                                to learn from this information, extract what makes sense to you and develop as a person and go out in the world and do
+                                good things. You are welcome. You are not obligated to return anything specific to this particular project.</p>
+                                <p>The next thing is to <strong>download the aNFT symbol</strong> and use it to represent your support.</p>
+                                <p>Furthermore, to prove that real art can be rewarded without the need of over-complicated technology. You can donate/contribute to the project based on a subjective valuation, which is one of the core messages of this project.</p>
+                                <p>If you do wish to do even more, there are some options for you. You can reach out to <a href="mailto:alpha.anft@gmail.com">alpha.anft@gmail.com</a> for any questions, comments, feedback, suggestions and more.</p>
+                            </section>
+
+                            <section>
+                                <h3>Part 8: The Alpha Anti-NFT (aNFT) Symbol</h3>
+                                <p>
+                                    <div class="anti-nft-symbol-container">
+                                        <div class="collection-image-card">
+                                            <img class="image" src="./anti-nft-symbol-images/anft-1.png" alt="anti nft symbol image #1">
+                                            <div class="collection-image-card-footer">
+                                                <div class="title-row">
+                                                    <div class="left-column">
+                                                        <p class="supertitle">aNFT Collection</p>
+                                                        <h4 class="title">#1</h4>
+                                                    </div>
+                                                    <div class="right-column">
+                                                        <p class="supertitle">Price</p>
+                                                        <h4 class="price"><img width="14" height="14" border="0" src="./assets/eth-symbol.svg" /> 0 <span
+                                                                class="text-spacing-circle">●</span> Free</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="link-row">
+                                                    <a href="./anti-nft-symbol-images/anft-1.png" target="_blank">PNG</a>
+                                                    <a href="./anti-nft-symbol-images/anft-1.svg" target="_blank">SVG</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </p>
+                                <p>
+                                    This symbol is at the core of this project/movement/art piece. It will represent the core of the abovementioned ideas and beliefs.
+                                    In opposition to NFTs, this symbol does not come in limited editions. It exists not on the blockchain, but in our spirits.
+                                    Its value will become greater the more people download it and share it. <strong>You</strong> determine it's value.
+                                    <strong>You</strong> will set it's price.
+                                </p>
+                                <p>
+                                    You are <strong>free</strong> to copy/download and use the symbol as you want.
+                                    No royalties, no copyright attached. But of course, if you mis-use it, you might hurt the project. If you agree with
+                                    this project, please use it responsibly. Similar to the arguments of the over-expensive NFTs, you can feel a kind of
+                                    "group membership" by using this symbol. It is a symbol of membership of this art/project/movement. The more people who
+                                    decide to use it, the more powerful it becomes.
+                                    You will yourself attribute value to this symbol, depending on how many are using it. Use as an avatar, have it as a
+                                    background on your phone or computer. Print it out and put it on your wall, or post it on your blog, or talk about
+                                    it on your channel. Do what you want, but do it in the intended spirit of this project and be part of a group of humans
+                                    who want to think sensibly and reasonably around NFTs, technology and the future of humanity.
+                                </p>
+                                <p>
+                                    <a href="#anft-symbol-collection">Go to the full aNFT collection</a>
+                                </p>
+                            </section>
+                            <section>
+                                <h3>Part 9: Sharing this project</h3>
+                                <p>
+                                    If you believe that more people ought to find this content and be part of this project, please help by sharing this with others.
+                                </p>
+                            </section>
+                            <section>
+                                <h3>Part 10: Providing a fair contribution</h3>
+                                <p>
+                                    If you wish to contribute to this project in a more concrete way, you can chose to do so by providing "fair" value.
+                                    This
+                                    could be in the form of money, but it doesn't have to be. It could also be in the form of goods or services. This is
+                                    100% voluntary and up to you as a person who are experiencing this art piece and/or taking part in this project. For
+                                    some, a
+                                    dollar can mean they have something to eat that day. For others, it is nothing. We all have different ways of
+                                    valuing
+                                    something. If you feel like this project deserves some of your time, energy, resources or money, please contribute
+                                    in a
+                                    way that you feel comfortable with. If you chose to donate something, do so in a way that do not hurt you
+                                    financially.
+                                    If you can not afford to donate - don't donate. If you really support this content and you feel a need to reward the
+                                    work behind this, then you are allowed to donate what you feel is appropriate to you. The person behind this
+                                    specific
+                                    project has spent a life-time learning creative arts, getting an education within technology, created a family, and
+                                    recently trying to find some way of contributing in a positive way to the world. All this has culminated in this
+                                    specific content, which should be regarded as a kind of "contemporary art", due to the nature of it in the context
+                                    of todays technology and culture. Publishing and maintaining content like this online is not free and takes time and resources.
+                                </p>
+                                <p>
+                                    Donations can be made in the form of:
+                                    <ul>
+                                        <li>BTC: bc1q6k5m6mp4r9xglgwc7ak7kgx8uj9a5jtl4duc0u</li>
+                                        <li>ETH: 0x64C14D4D41c9A00484877Fb922a6068bD0397A49</li>
+                                        <li>LTC: Lc5qhqWLvLJawtUbb8mGfJ57h1fDidD47D</li>
+                                        <li>USDT (ETH Network): 0x64C14D4D41c9A00484877Fb922a6068bD0397A49</li>
+                                        <li>USDC (ETH Network): 0x64C14D4D41c9A00484877Fb922a6068bD0397A49</li>
+                                        <li>BNB (BNB Network): bnb1yrww0spt6lrtjcv4djx60z68zq7yeggl0vq9n9</li>
+                                    </ul>
+                                    <p>If you would rather donate or contribute in another tangible or intangible way, reach out by email:
+                                        <a href="mailto:alpha.anft@gmail.com">alpha.anft@gmail.com</a>.</p>
+                                </p>
+                            </section>
+                        </div><div class="article-card" id="anft-symbol-collection">
+                            <h1>aNFT Symbol Collection</h1>
+                            <section>
+                                <h3>Collectible aNFT pieces</h3>
+                                <p>Below are a set of aNFT collectible pieces. They are all unlimited in supply and free to download and copy.
+                                    The uniqueness is in the idea. More unique variations will be created as the project evolves.</p>
+                                <p>Each have a link to a PNG and an SVG version.</p>
+                            </section>
+                            <section id="anft-collection-container" class="collection-images-container">
+                            </section>
+                        </div>
+                        <div class="article-card" id="donations">
+                            <h1>Donations</h1>
+                            <section>
+                                <h3>What is your appreciation of this art project?</h3>
+                                <p>As mentioned above, you should decide yourself if you believe this art project is worth supporting financially. If you have a dollar to spare, please do.
+                                    If you need your money to pay your bills or buy food - please to that instead. Part of this project is to see how humans will react to this project and the
+                                    voluntary choice to pay for it. Regardless of what happens, the results should eventually be published and shared with the world.
+                                </p>
+                                <p>
+                                    Crypto donations can be made in the form of:
+                                    <ul>
+                                        <li>BTC: bc1q6k5m6mp4r9xglgwc7ak7kgx8uj9a5jtl4duc0u</li>
+                                        <li>ETH: 0x64C14D4D41c9A00484877Fb922a6068bD0397A49</li>
+                                        <li>LTC: Lc5qhqWLvLJawtUbb8mGfJ57h1fDidD47D</li>
+                                        <li>USDT (ETH Network): 0x64C14D4D41c9A00484877Fb922a6068bD0397A49</li>
+                                        <li>USDC (ETH Network): 0x64C14D4D41c9A00484877Fb922a6068bD0397A49</li>
+                                        <li>BNB (BNB Network): bnb1yrww0spt6lrtjcv4djx60z68zq7yeggl0vq9n9</li>
+                                    </ul>
+                                </p>
+                                <p>If you would rather donate or contribute in another tangible or intangible way, reach out by email: <a href="alpha.anft@gmail.com">alpha.anft@gmail.com</a>.</p>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="./scripts/moralis.js"></script>
+        <script src="./scripts/pages.js"></script>
+        <script src="./scripts/collection.js"></script>
+        <script src="./scripts/main.js"></script>
+    </body>
+
+</html>
