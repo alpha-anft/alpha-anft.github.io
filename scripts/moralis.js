@@ -1,8 +1,11 @@
 // connect to Moralis server
 
-const serverUrl = "https://febmhsqllaac.usemoralis.com:2053/server";
-const appId = "WXh0HlcYBTvEqtGyaZ5WEc9hRHvrXGF0INu6cNVq";
-Moralis.start({serverUrl, appId});
+async function initializeMoralis() {
+    const serverUrl = "https://febmhsqllaac.usemoralis.com:2053/server";
+    const appId = "WXh0HlcYBTvEqtGyaZ5WEc9hRHvrXGF0INu6cNVq";
+    await Moralis.start({serverUrl, appId});
+}
+
 
 // add from here down
 async function moralisAlreadyLoggedInUser() {

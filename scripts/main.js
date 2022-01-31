@@ -1,4 +1,5 @@
 (async function() {
+    await initializeMoralis();
     showInitializePage();
 })();
 
