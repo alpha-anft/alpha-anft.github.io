@@ -2,29 +2,6 @@
     showInitializePage();
 })();
 
-async function showInitializePage() {
-    showPage('page-initializing');
-    document.querySelectorAll("#check-my-wallet-button")
-        .forEach(button => {
-            setButtonState(button, true, 'Check my wallet');
-        });
-
-    const provider = await detectEthereumProvider({
-        mustBeMetaMask: true,
-    })
-
-    if (provider) {
-        const hasCurrentUser = await moralisAlreadyLoggedInUser();
-        if (hasCurrentUser) {
-            onMoralisUserDetected();
-        } else {
-            onEthereumBrowserDetected(provider);
-        }
-    } else {
-        onNonEthereumBrowserDetected();
-    }
-}
-
 async function onMoralisUserDetected() {
     showPage('page-moralis-user-detected');
 }

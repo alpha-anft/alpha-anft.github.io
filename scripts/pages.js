@@ -5,7 +5,40 @@ function hideAllPages() {
     }
 }
 
+async function showInitializePage() {
+    hideDisconnectWalletButton();
+    showPage('page-initializing');
+    document.querySelectorAll("#check-my-wallet-button")
+        .forEach(button => {
+            setButtonState(button, true, 'Check my wallet');
+        });
+
+    const provider = await detectEthereumProvider({
+        mustBeMetaMask: true,
+    })
+
+    if (provider) {
+        const hasCurrentUser = await moralisAlreadyLoggedInUser();
+        if (hasCurrentUser) {
+            onMoralisUserDetected();
+        } else {
+            onEthereumBrowserDetected(provider);
+        }
+    } else {
+        onNonEthereumBrowserDetected();
+    }
+}
+
+function showDisconnectWalletButton() {
+    document.getElementById("disconnect-wallet-button-container").classList.remove('hidden');
+}
+
+function hideDisconnectWalletButton() {
+    document.getElementById("disconnect-wallet-button-container").classList.add('hidden');
+}
+
 function showUserHasNoWalletPage() {
+    hideDisconnectWalletButton();
     document.querySelector('.dynamic-page-content.user-has-no-wallet')
         .classList.remove('hidden');
     showPage('page-main');
@@ -13,6 +46,7 @@ function showUserHasNoWalletPage() {
 }
 
 function showUserHasNoNFTsPage() {
+    showDisconnectWalletButton();
     document.querySelector('.dynamic-page-content.user-has-no-nfts')
         .classList.remove('hidden');
 
@@ -21,6 +55,7 @@ function showUserHasNoNFTsPage() {
 }
 
 function showUserHasNFTsPage(numberOfNFts) {
+    showDisconnectWalletButton();
     document.querySelector('.dynamic-page-content.user-has-nfts')
         .classList.remove('hidden');
     document.getElementById("user-nft-count-text").innerText = numberOfNFts;
